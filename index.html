@@ -8,10 +8,15 @@
 </head>
 <body>
     <div class="card">
-        <div class="search">
-            <input type="text" placeholder="Digite o nome da cidade" spellcheck="false">
-            <button><img src="img/search.png" alt=""></button>
+        <div class="search-autocomplete">
+            <input id="city" type="text" placeholder="Ex: Foz do Iguaçu" spellcheck="false">
+        <ul id="suggestions"> </ul>
+            <button><img src="img/search.png" alt="Pesquisar"></button>
         </div>
+        
+        <small class="search-subtext"> 
+                Digite o nome da cidade 
+        </small>
         <div class="error">
             <p><strong>Nome inválido da cidade</strong></p>
         </div>
