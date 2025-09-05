@@ -1,12 +1,9 @@
-var apiKey = "c16065cf71f35ce65d3c93abd80d3d5b";
-var apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&q="
-
-
 var searchBox = document.querySelector(".search-autocomplete input");
 var searchBtn = document.querySelector(".search-autocomplete button");
 
 const input = document.querySelector("#city");
 const weatherIcon = document.querySelector(".weather-icon");
+const subtext = document.querySelector(".search-subtext");
 
 let cities = [];
 
@@ -21,12 +18,12 @@ carregarCidades();
 function searchCities(query)
 {
     return cities.filter(c => c.nome.toLowerCase().includes(query)).slice(0, 5);
-    // return cidades.filter(c => c.nome.toLowerCase().includes(query.toLowerCase())).slice(0, 10); // limitar resultados
 }
 
 
 async function checkWeather(city) {
-    const response = await fetch(apiUrl + city +  `&appid=${apiKey}`);
+    const url = "http://localhost:3000/weather";
+    const response = await fetch(url +  `?city=${city}`);
 
     console.clear();
     if(response.status == 404) {
@@ -39,18 +36,19 @@ async function checkWeather(city) {
       
         console.log(data);
 
-        document.querySelector(".city").innerHTML = data.name;
-        document.querySelector(".temp").innerHTML = Math.round(data.main.temp) + "°C";
-        document.querySelector(".tempMax").innerHTML = '<img src="img/arrow-max.svg">' +  Math.round(data.main.temp_max) + "°C";
-        document.querySelector(".tempMin").innerHTML = '<img src="img/arrow-min.svg">' + Math.round(data.main.temp_min) + "°C";
-        document.querySelector(".humidity").innerHTML = Math.round(data.main.humidity) + "%";
-        document.querySelector(".wind").innerHTML = Math.round(data.wind.speed) + " km/h";
+        document.querySelector(".city").innerHTML = data.results.city;
+        document.querySelector(".temp").innerHTML = Math.round(data.results.temp) + "°C";
+        document.querySelector(".tempMax").innerHTML = '<img src="img/arrow-max.svg">' +  Math.round(data.results.forecast[0].max) + "°C";
+        document.querySelector(".tempMin").innerHTML = '<img src="img/arrow-min.svg">' + Math.round(data.results.forecast[0].min) + "°C";
+        document.querySelector(".humidity").innerHTML = Math.round(data.results.humidity) + "%";
+        document.querySelector(".wind").innerHTML = data.results.wind_speedy;
 
-        let weatherCondition = data.weather[0].main.toLowerCase();
-        weatherIcon.src = `img/${weatherCondition}.png`;
+        let weatherCondition = data.results.condition_slug;
+        weatherIcon.src = `img/${weatherCondition}.svg`;
 
         document.querySelector(".error").style.display = "none";
         document.querySelector(".weather").style.display = "block";
+        subtext.innerHTML = "";
     }
     
 }
@@ -71,7 +69,7 @@ function showSuggestions(cities)
 
     cities.forEach(city => {
         let li = document.createElement("li");
-        li.textContent = `${city.nome} / ${city.microrregiao.mesorregiao.UF.sigla}`;
+        li.textContent = `${city.nome}/${city.microrregiao.mesorregiao.UF.sigla}`;
         li.addEventListener("click", () => {
             input.value = city.nome;
             list.innerHTML = "";
@@ -87,7 +85,8 @@ searchBtn.addEventListener("click", ()=> {
 
 searchBox.addEventListener("click", () => {
     input.value = "";
-    input.ariaPlaceholder = "";
+    input.placeholder = "";
+    subtext.innerHTML = "Digite o nome da cidade";
 })
 
 searchBox.addEventListener("keypress", (e) => {

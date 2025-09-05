@@ -1,9 +1,12 @@
 import express from "express";
 import fetch from "node-fetch";
+import cors from "cors";
 
 const app = express();
 const PORT = 3000;
 const key = "c2a188ac";
+
+app.use(cors());
 
 app.get("/weather", async (req, res) => {
     const city = req.query.city;
