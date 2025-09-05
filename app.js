@@ -1,7 +1,6 @@
 var apiKey = "c16065cf71f35ce65d3c93abd80d3d5b";
 var apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&q="
 
-// var FozDoIguaçu = "https://api.openweathermap.org/data/2.5/weather?units=metric&q=Foz do Iguaçu&appid=c16065cf71f35ce65d3c93abd80d3d5b" 
 
 var searchBox = document.querySelector(".search-autocomplete input");
 var searchBtn = document.querySelector(".search-autocomplete button");
@@ -74,7 +73,7 @@ function showSuggestions(cities)
         let li = document.createElement("li");
         li.textContent = `${city.nome} / ${city.microrregiao.mesorregiao.UF.sigla}`;
         li.addEventListener("click", () => {
-            input.value = city.name;
+            input.value = city.nome;
             list.innerHTML = "";
         })
         list.appendChild(li);
@@ -86,11 +85,17 @@ searchBtn.addEventListener("click", ()=> {
     checkWeather(searchBox.value);
 })
 
+searchBox.addEventListener("click", () => {
+    input.value = "";
+    input.ariaPlaceholder = "";
+})
+
 searchBox.addEventListener("keypress", (e) => {
     if (e.key === "Enter")
     {
         checkWeather(searchBox.value);
     }
 })
+
 
 
