@@ -1,0 +1,15 @@
+version: "3.8"
+services:
+  backend:
+    build: ./backend
+    container_name: weather-backend
+    ports:
+      - "3000:3000"
+
+  frontend:
+    build: ./frontend
+    container_name: weather-frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend

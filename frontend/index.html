@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>WeatherAPI</title>
+</head>
+<body>
+    <div class="card">
+        <div class="search-autocomplete">
+            <input id="city" type="text" placeholder="Ex: Foz do Iguaçu" autocomplete="off" spellcheck="false">
+        <ul id="suggestions"> </ul>
+            <button><img src="img/search.png" alt="Pesquisar"></button>
+        </div>
+        
+        <small class="search-subtext"> 
+                Digite o nome da cidade 
+        </small>
+        <div class="error">
+            <p><strong>Nome inválido da cidade</strong></p>
+        </div>
+        <div class="weather">
+            <img src="img/rain.png" class="weather-icon" alt="">
+            <h1 class="temp"> <nobr>22 °C</nobr> </h1>
+            <div class="weatherDelta">
+                <h3 class="tempMax"> <nobr> <img src="img/arrow-max.svg"> 30 °C</nobr>  </h3>
+                <h3 class="tempMin"> <nobr> <img src="img/arrow-min.svg"> 22 °C</nobr> </h3>
+            </div>
+            <h2 class="city">Foz do Iguaçu</h2>
+            <div class="details">
+                <div class="column"></div>
+                <img src="img/humidity.png" alt="">
+                <div>
+                    <p class="humidity">50%</p>
+                    <p>Humidity</p>
+                </div>
+                <div class="column"></div>
+                <img src="img/wind.png" alt="">
+                <div>
+                    <p class="wind">15 km/h</p>
+                    <p>Wind</p>
+                </div>
+            </div>
+        </div>
+        
+        
+
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
